@@ -71,7 +71,7 @@ public class Main {
                                 break;
                         }
 
-                    }while(option2 !=5);
+                    }while(option2 !=3);
                     break;
 
                 case 3:
@@ -105,12 +105,11 @@ public class Main {
                 case 4:
                     do {
                         option2 = Integer.parseInt(JOptionPane.showInputDialog("""
-                                1. Listar CONTRATACIONES ACTIVAS
-                                2  listar CONTRATACIONES INACTIVAS
-                                3. Crear CONTRATACION
-                                4. Eliminar CONTRATACION
-                                5. Actualizar CONTRATACION
-                                6.Salir
+                                1. Listar CONTRATACIONES
+                                2. Crear CONTRATACION
+                                3. Eliminar CONTRATACION
+                                4. Actualizar CONTRATACION
+                                5.Salir
                     
                                 Ingrese una opcion:
                                 """));
@@ -119,19 +118,16 @@ public class Main {
                                 ContratacionController.getAll();
                                 break;
                             case 2:
-                                ContratacionController.getiInactive();
-                                break;
-                            case 3:
                                 ContratacionController.insert();
                                 break;
-                            case 4:
+                            case 3:
                                 ContratacionController.delete();
                                 break;
-                            case 5:
+                            case 4:
                                 ContratacionController.update();
                                 break;
                         }
-                    }while(option2 != 6);
+                    }while(option2 != 5);
                     break;
             }
         }while (option != 5);

@@ -126,10 +126,6 @@ public class ContratacionController {
 
     }
 
-    public static void getiInactive(){
-        String listaString = getAll(instanciarModel().findInactive());
-        JOptionPane.showMessageDialog(null,listaString);
-    }
 
     public static void getAll(){
         String listaString = getAll(instanciarModel().findAll());

@@ -55,7 +55,7 @@ public class ContratacionModel implements CRUD {
         List<Object> listaContrataciones = new ArrayList<>();
 
         try{
-            String sql = "SELECT * FROM contratacion INNER JOIN vacante ON vacante.id = contratacion.id_vacante INNER JOIN coder ON coder.id = contratacion.id_coder INNER JOIN empresa ON empresa.id = vacante.id_empresa where vacante.estado = \"ACTIVO\";";
+            String sql = "SELECT * FROM contratacion INNER JOIN vacante ON vacante.id = contratacion.id_vacante INNER JOIN coder ON coder.id = contratacion.id_coder INNER JOIN empresa ON empresa.id = vacante.id_empresa;";
 
             PreparedStatement objPrepare = objConnection.prepareStatement(sql);
 
@@ -161,54 +161,4 @@ public class ContratacionModel implements CRUD {
         return isDeleted;
     }
 
-    public List<Object> findInactive() {
-        Connection objConnection = ConfigDB.openConnection();
-        List<Object> listaContrataciones = new ArrayList<>();
-
-        try{
-            String sql = "SELECT * FROM contratacion INNER JOIN vacante ON vacante.id = contratacion.id_vacante INNER JOIN coder ON coder.id = contratacion.id_coder INNER JOIN empresa ON empresa.id = vacante.id_empresa where vacante.estado = \"INACTIVO\";";
-
-            PreparedStatement objPrepare = objConnection.prepareStatement(sql);
-
-            ResultSet objResult = objPrepare.executeQuery();
-
-            while(objResult.next()){
-                Contratacion objContratacion = new Contratacion();
-                Vacante objVacante = new Vacante();
-                Coder objCoder = new Coder();
-                Empresa objEmpresa = new Empresa();
-
-                objContratacion.setId(objResult.getInt("contratacion.id"));
-                objContratacion.setSalario(objResult.getInt("contratacion.salario"));
-                objContratacion.setId_vacante(objResult.getInt("contratacion.id_vacante"));
-                objContratacion.setId_coder(objResult.getInt("contratacion.id_coder"));
-
-
-                objVacante.setTitulo(objResult.getString("vacante.titulo"));
-                objVacante.setDescripcion(objResult.getString("vacante.descripcion"));
-                objVacante.setTecnologia(objResult.getString("vacante.tecnologia"));
-                objVacante.setId_empresa(objResult.getInt("vacante.id_empresa"));
-                objEmpresa.setNombre(objResult.getString("empresa.nombre"));
-                objEmpresa.setUbicacion(objResult.getString("empresa.ubicacion"));
-
-                objCoder.setNombre(objResult.getString("coder.nombre"));
-                objCoder.setApellidos(objResult.getString("coder.apellidos"));
-                objCoder.setDocumento(objResult.getString("coder.documento"));
-
-                objVacante.setObjEmpresa(objEmpresa);
-                objContratacion.setObjVacante(objVacante);
-                objContratacion.setObjCoder(objCoder);
-
-
-                listaContrataciones.add(objContratacion);
-
-
-            }
-        }catch (SQLException e){
-            System.out.println("ERROR: "+e);
-        }
-
-        ConfigDB.closeConnection();
-        return listaContrataciones;
-    }
 }
