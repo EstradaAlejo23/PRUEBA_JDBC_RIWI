@@ -7,16 +7,18 @@ public class Coder {
     private String documento;
     private int cohorte;
     private String cv;
+    private String clan;
 
     public Coder() {
     }
 
-    public Coder(String nombre, String apellidos, String documento, int cohorte, String cv) {
+    public Coder(String nombre, String apellidos, String documento, int cohorte, String cv, String clan) {
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.documento = documento;
         this.cohorte = cohorte;
         this.cv = cv;
+        this.clan = clan;
     }
 
     public int getId() {
@@ -67,6 +69,14 @@ public class Coder {
         this.cv = cv;
     }
 
+    public String getClan() {
+        return clan;
+    }
+
+    public void setClan(String clan) {
+        this.clan = clan;
+    }
+
     @Override
     public String toString() {
         return "Coder{" +
@@ -75,6 +85,7 @@ public class Coder {
                 ", documento='" + documento + '\'' +
                 ", cohorte=" + cohorte +
                 ", cv='" + cv + '\'' +
+                ", clan='" + clan + '\'' +
                 '}';
     }
 }

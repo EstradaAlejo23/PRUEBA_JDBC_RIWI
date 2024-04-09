@@ -21,7 +21,7 @@ public class VacanteModel implements CRUD {
         Vacante objVacante = (Vacante) obj;
 
         try{
-            String sql = "INSERT INTO vacante (titulo,descripcion,duracion,estado,id_empresa) VALUES (?,?,?,?,?);";
+            String sql = "INSERT INTO vacante (titulo,descripcion,duracion,estado,id_empresa,tecnologia) VALUES (?,?,?,?,?,?);";
             PreparedStatement objPrepare = objConnection.prepareStatement(sql,PreparedStatement.RETURN_GENERATED_KEYS);
 
             objPrepare.setString(1,objVacante.getTitulo());
@@ -29,6 +29,7 @@ public class VacanteModel implements CRUD {
             objPrepare.setString(3,objVacante.getDuracion());
             objPrepare.setString(4,objVacante.getEstado());
             objPrepare.setInt(5,objVacante.getId_empresa());
+            objPrepare.setString(6,objVacante.getTecnologia());
 
             objPrepare.execute();
 
@@ -70,6 +71,7 @@ public class VacanteModel implements CRUD {
                 objVacante.setDuracion(objResult.getString("vacante.duracion"));
                 objVacante.setEstado(objResult.getString("vacante.estado"));
                 objVacante.setId_empresa(objResult.getInt("vacante.id_empresa"));
+                objVacante.setTecnologia(objResult.getString("tecnologia"));
 
                 objEmpresa.setId(objResult.getInt("empresa.id"));
                 objEmpresa.setNombre(objResult.getString("empresa.nombre"));
@@ -99,7 +101,7 @@ public class VacanteModel implements CRUD {
         boolean isUpdated = false;
 
         try {
-            String sql = "UPDATE vacante SET titulo = ?,descripcion = ?,duracion = ?,estado = ?,id_empresa = ? WHERE id = ?;";
+            String sql = "UPDATE vacante SET titulo = ?,descripcion = ?,duracion = ?,estado = ?,id_empresa = ?, tecnologia = ? WHERE id = ?;";
             PreparedStatement objPrepare = objConnection.prepareStatement(sql);
 
             objPrepare.setString(1,objVacante.getTitulo());
@@ -107,7 +109,8 @@ public class VacanteModel implements CRUD {
             objPrepare.setString(3,objVacante.getDuracion());
             objPrepare.setString(4,objVacante.getEstado());
             objPrepare.setInt(5,objVacante.getObjEmpresa().getId());
-            objPrepare.setInt(6,objVacante.getId());
+            objPrepare.setString(6,objVacante.getTecnologia());
+            objPrepare.setInt(7,objVacante.getId());
 
             int totalRowAfected = objPrepare.executeUpdate();
 

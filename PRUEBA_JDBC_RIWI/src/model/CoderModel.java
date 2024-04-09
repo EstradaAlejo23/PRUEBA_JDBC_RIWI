@@ -20,7 +20,7 @@ public class CoderModel implements CRUD {
         Coder objCoder = (Coder) obj;
 
         try{
-            String sql = "INSERT INTO coder (nombre,apellidos,documento,cohorte,cv) VALUE (?,?,?,?,?);";
+            String sql = "INSERT INTO coder (nombre,apellidos,documento,cohorte,cv,clan) VALUE (?,?,?,?,?,?);";
 
             PreparedStatement objPrepare =objConnection.prepareStatement(sql,PreparedStatement.RETURN_GENERATED_KEYS);//devuelve la id que es autoincrementable
 
@@ -29,6 +29,7 @@ public class CoderModel implements CRUD {
             objPrepare.setString(3,objCoder.getDocumento());
             objPrepare.setInt(4,objCoder.getCohorte());
             objPrepare.setString(5,objCoder.getCv());
+            objPrepare.setString(6,objCoder.getClan());
 
             objPrepare.execute();
 
@@ -70,6 +71,7 @@ public class CoderModel implements CRUD {
                 objCoder.setDocumento(objResult.getString("documento"));
                 objCoder.setCohorte(objResult.getInt("cohorte"));
                 objCoder.setCv(objResult.getString("cv"));
+                objCoder.setClan(objResult.getString("clan"));
 
                 listaCoders.add(objCoder);
             }
@@ -88,7 +90,7 @@ public class CoderModel implements CRUD {
         boolean isUpdated = false;
 
         try{
-            String sql = "UPDATE coder SET nombre = ?, apellidos = ?, documento = ?,cohorte = ?,cv = ? WHERE id = ?;";
+            String sql = "UPDATE coder SET nombre = ?, apellidos = ?, documento = ?,cohorte = ?,cv = ?, clan = ? WHERE id = ?;";
             PreparedStatement objPrepare = objConnection.prepareStatement(sql);
 
             objPrepare.setString(1,objCoder.getNombre());
@@ -96,7 +98,8 @@ public class CoderModel implements CRUD {
             objPrepare.setString(3,objCoder.getDocumento());
             objPrepare.setInt(4,objCoder.getCohorte());
             objPrepare.setString(5,objCoder.getCv());
-            objPrepare.setInt(6,objCoder.getId());
+            objPrepare.setString(6,objCoder.getClan());
+            objPrepare.setInt(7,objCoder.getId());
 
             int totalRowAffected = objPrepare.executeUpdate();
             if(totalRowAffected > 0){

@@ -42,6 +42,8 @@ public class VacanteController {
 
     public static void updated(){
         Object[] opciones = Utils.listaAarray(instanciarModel().findAll());
+        Object[] estado = {"ACTIVO","INACTIVO"};
+
         Vacante objVacante = (Vacante) JOptionPane.showInputDialog(
                 null,
                 "Seleccione la Vacante a actualizar: ",
@@ -55,7 +57,15 @@ public class VacanteController {
         objVacante.setTitulo(JOptionPane.showInputDialog(null,"Ingresa el Titulo: ",objVacante.getTitulo()));
         objVacante.setDescripcion(JOptionPane.showInputDialog(null,"Ingresa la Descripcion: ",objVacante.getDescripcion()));
         objVacante.setDuracion(JOptionPane.showInputDialog(null,"Ingresa la Duracion: ",objVacante.getDuracion()));
-        objVacante.setEstado(JOptionPane.showInputDialog(null,"Ingrese el Estado: ",objVacante.getEstado()));
+        objVacante.setEstado((String) JOptionPane.showInputDialog(
+                null,
+                "Selecciona el estado",
+                "Elegir",
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                estado,
+                estado[0]));
+        objVacante.setTecnologia(JOptionPane.showInputDialog(null,"Ingrese la tecnologia: ",objVacante.getTecnologia()));
 
         Object[] opcionesEmpresas = Utils.listaAarray(EmpresaController.instanciarModel().findAll());
 
@@ -73,10 +83,20 @@ public class VacanteController {
     }
 
     public static void insert(){
+        Object [] opcionesEstado ={"ACTIVO","INACTIVO"};
+
         String titulo = JOptionPane.showInputDialog("Ingresa el Titulo: ");
         String descripcion = JOptionPane.showInputDialog("Ingresa la Descripcion");
         String duracion = JOptionPane.showInputDialog("Ingresa la Duracion");
-        String estado = JOptionPane.showInputDialog("Ingresa el Estado");
+        Object estado = JOptionPane.showInputDialog(
+                null,
+                "Selecciona un Estado",
+                "Elegir",
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                opcionesEstado,
+                opcionesEstado[0]);
+        String tecnologia = JOptionPane.showInputDialog("Ingresa la tecnologia");
 
         Object[] opcionesEmpresas = Utils.listaAarray(EmpresaController.instanciarModel().findAll());
 
@@ -90,7 +110,7 @@ public class VacanteController {
                 opcionesEmpresas[0]
         );
 
-        instanciarModel().insert(new Vacante(titulo,descripcion,duracion,estado,objEmpresa.getId(),objEmpresa));
+        instanciarModel().insert(new Vacante(titulo,descripcion,duracion,(String) estado,objEmpresa.getId(),objEmpresa,tecnologia));
 
     }
 

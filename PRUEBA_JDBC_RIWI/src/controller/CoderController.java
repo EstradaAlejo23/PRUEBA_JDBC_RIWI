@@ -14,8 +14,9 @@ public class CoderController {
         String documento = JOptionPane.showInputDialog("Ingrese el Documento");
         int cohorte = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la cohorte"));
         String cv = JOptionPane.showInputDialog("Ingrece el CV");
+        String clan = JOptionPane.showInputDialog("Ingrese el clan");
 
-        instanciarModel().insert(new Coder(nombre,apellidos,documento,cohorte,cv));
+        instanciarModel().insert(new Coder(nombre,apellidos,documento,cohorte,cv,clan));
     }
 
     public static void getAll(){
@@ -73,6 +74,7 @@ public class CoderController {
         objSeleccionar.setDocumento(JOptionPane.showInputDialog(null,"Ingresa el nuevo Documento",objSeleccionar.getDocumento()));
         objSeleccionar.setCohorte(Integer.parseInt(JOptionPane.showInputDialog(null,"Ingresa el nuevo cohorte",objSeleccionar.getCohorte())));
         objSeleccionar.setCv(JOptionPane.showInputDialog(null,"Ingresa la nueva CV",objSeleccionar.getCv()));
+        objSeleccionar.setClan(JOptionPane.showInputDialog(null,"Ingresa el nuevo clan",objSeleccionar.getClan()));
 
         instanciarModel().update(objSeleccionar);
 
